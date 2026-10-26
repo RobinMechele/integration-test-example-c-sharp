@@ -1,0 +1,17 @@
+# Local Oracle database for running the API with 'dotnet run'. The tests do NOT need this:
+# they start their own throw-away container with Testcontainers.
+services:
+  oracle:
+    image: gvenzl/oracle-free:23.26.3-slim-faststart
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: local-admin-password   # SYS/SYSTEM password, local development only
+      APP_USER: ordering                       # schema used by the API (see appsettings.Development.json)
+      APP_USER_PASSWORD: ordering
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s

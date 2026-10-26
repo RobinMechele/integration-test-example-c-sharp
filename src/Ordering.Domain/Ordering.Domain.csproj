@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The Domain layer is the centre of the Clean Architecture: it has NO project or package references.
+    This is enforced by tests/Ordering.ArchitectureTests.
+  -->
+  <PropertyGroup>
+    <RootNamespace>Ordering.Domain</RootNamespace>
+  </PropertyGroup>
+</Project>

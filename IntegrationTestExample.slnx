@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ordering.Api/Ordering.Api.csproj" />
+    <Project Path="src/Ordering.Application/Ordering.Application.csproj" />
+    <Project Path="src/Ordering.Domain/Ordering.Domain.csproj" />
+    <Project Path="src/Ordering.Infrastructure/Ordering.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ordering.Api.IntegrationTests/Ordering.Api.IntegrationTests.csproj" />
+    <Project Path="tests/Ordering.Application.UnitTests/Ordering.Application.UnitTests.csproj" />
+    <Project Path="tests/Ordering.ArchitectureTests/Ordering.ArchitectureTests.csproj" />
+    <Project Path="tests/Ordering.Domain.UnitTests/Ordering.Domain.UnitTests.csproj" />
+    <Project Path="tests/Ordering.Infrastructure.IntegrationTests/Ordering.Infrastructure.IntegrationTests.csproj" />
+    <Project Path="tests/Ordering.TestKit/Ordering.TestKit.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Test infrastructure shared by the integration test projects: the Oracle container,
+    database reset (Respawn) and the message publisher spy.
+  -->
+  <PropertyGroup>
+    <RootNamespace>Ordering.TestKit</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ordering.Infrastructure\Ordering.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.extensibility.core" />
+    <PackageReference Include="Testcontainers.Oracle" />
+    <PackageReference Include="Respawn" />
+  </ItemGroup>
+</Project>
