@@ -51,7 +51,8 @@ and also *why*, so you can apply the same ideas to your own codebase.
 | Assertions | Shouldly (BSD-3) | 4.3.0 |
 | Architecture rules | NetArchTest.Rules | 1.3.2 |
 
-**108 tests** run in about **40 seconds** on a 4-core machine, including starting two Oracle containers:
+**108 tests** run in about **40 seconds** on a 4-core machine, including starting two Oracle containers. On a
+GitHub-hosted runner the test step takes about 2.5 minutes, because the Oracle image is downloaded on every run:
 
 | Test project | Kind | Tests |
 | --- | --- | ---: |
