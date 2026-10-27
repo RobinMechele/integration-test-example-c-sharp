@@ -15,6 +15,13 @@ and also *why*, so you can apply the same ideas to your own codebase.
 > database before every test, and only the *unmanaged* dependencies (message broker, clock) replaced by test
 > doubles. No in-memory database anywhere.
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/test-map-dark.svg">
+    <img alt="Map of the five test projects: which layer each one exercises, and which outside dependencies are real (Oracle) or replaced (message broker spy, fake clock)" src="docs/images/test-map-light.svg">
+  </picture>
+</p>
+
 ---
 
 ## Contents
@@ -102,14 +109,12 @@ writes them to the log, so you will see `Published CustomerRegistered message ..
 
 ### 3.1 Layers and the dependency rule
 
-```mermaid
-flowchart LR
-    Api["Ordering.Api<br/>Minimal API endpoints<br/>composition root"] --> Application
-    Api --> Infrastructure
-    Infrastructure["Ordering.Infrastructure<br/>EF Core + Oracle, repositories,<br/>outbox, message publisher"] --> Application
-    Application["Ordering.Application<br/>commands, queries, handlers,<br/>validators, ports"] --> Domain
-    Domain["Ordering.Domain<br/>aggregates, value objects,<br/>domain events, business rules"]
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/architecture-dark.svg">
+    <img alt="Clean Architecture layers: Ordering.Domain in the centre, Ordering.Application around it, Ordering.Api and Ordering.Infrastructure on the outside, with dependencies pointing inwards" src="docs/images/architecture-light.svg">
+  </picture>
+</p>
 
 Source code dependencies only point **inwards**: the Dependency Rule from Robert C. Martin's *Clean Architecture*
 (chapter 22, "The Clean Architecture"). `Ordering.Domain` has no project or package references at all. `Ordering.Application` knows the domain and
@@ -206,6 +211,13 @@ crash before publishing. A database transaction cannot include the broker.
 and [*Polling publisher*](https://microservices.io/patterns/data/polling-publisher.html); *Microservices Patterns*,
 Manning 2018): write the message to an `OUTBOX_MESSAGES` table **in the same transaction** as the business data,
 and let a separate relay publish it afterwards.
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/outbox-dark.svg">
+    <img alt="Transactional outbox: the request saves the order and an outbox row in one Oracle transaction; in the background, outbox processors on several app instances claim different rows with FOR UPDATE SKIP LOCKED and publish them to the message broker" src="docs/images/outbox-light.svg">
+  </picture>
+</p>
 
 | Part | Where | How |
 | --- | --- | --- |
@@ -333,21 +345,12 @@ mocking `DbSet` for queries. The real-database tests are cheap enough to cover t
 
 #### 4. One container per test assembly, a clean database before every test
 
-```mermaid
-sequenceDiagram
-    participant X as xUnit (assembly fixture)
-    participant T as Testcontainers
-    participant O as Oracle container
-    participant R as Respawn
-    X->>T: new OracleBuilder("gvenzl/oracle-free:23.26.3-slim-faststart").Build().StartAsync()
-    T->>O: docker run (random host port)
-    X->>O: dbContext.Database.MigrateAsync()  (real EF Core migrations, once)
-    X->>R: Respawner.CreateAsync(DbAdapter.Oracle, ignore EF_MIGRATIONS_HISTORY)
-    loop before every test
-        X->>R: ResetAsync()  (DELETE all rows in FK-safe order)
-    end
-    X->>T: DisposeAsync()  (container removed; Ryuk cleans up after crashes)
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/test-lifecycle-dark.svg">
+    <img alt="Test run timeline: each integration test assembly starts its own Oracle container once, applies the migrations once, then resets the data with Respawn before every test; the two assemblies run in parallel" src="docs/images/test-lifecycle-light.svg">
+  </picture>
+</p>
 
 * **Container per assembly, not per test.** Oracle needs roughly 20 to 40 seconds to start. Sharing one container
   per test assembly (an xUnit v3 `[assembly: AssemblyFixture]`) pays that cost once. The two integration test
@@ -685,6 +688,7 @@ mode, which xUnit v3 4.x requires on the .NET 10 SDK. That is why the commands u
 .
 ├── .github/workflows/ci.yml           # restore, build (warnings = errors), format check, test (Docker on the runner)
 ├── compose.yaml                       # local Oracle for `dotnet run` (tests do not need it)
+├── docs/images                        # the README illustrations (light and dark SVG variants)
 ├── Directory.Build.props              # net10.0, nullable, warnings as errors, NuGet audit
 ├── Directory.Packages.props           # central package versions
 ├── global.json                        # SDK + Microsoft Testing Platform runner

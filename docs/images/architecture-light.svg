@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-label="Clean Architecture layers of this project">
+<title>Clean Architecture layers of this project</title>
+<style>
+  .card { fill: #ffffff; stroke: #d0d7de; }
+  text { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif; fill: #1f2328; }
+  .mono { font-family: ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; }
+  .muted { fill: #59636e; }
+  .h1 { font-size: 20px; font-weight: 600; }
+  .h2 { font-size: 15px; font-weight: 600; }
+  .b { font-weight: 600; }
+  .s { font-size: 13px; }
+  .xs { font-size: 12px; }
+  .ln { stroke: #6e7781; stroke-width: 1.6; fill: none; }
+  .dash { stroke-dasharray: 5 4; }
+  .head { fill: #6e7781; }
+  .bar { fill: #f6f8fa; stroke: #8c959f; stroke-width: 1.2; }
+  .sep { stroke: #d0d7de; stroke-width: 1; }
+  .dom { fill: #fff8c5; stroke: #bf8700; stroke-width: 1.5; } .dom-t { fill: #7d4e00; }
+  .app { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.5; } .app-t { fill: #116329; }
+  .inf { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.5; } .inf-t { fill: #0550ae; }
+  .api { fill: #fbefff; stroke: #8250df; stroke-width: 1.5; } .api-t { fill: #6639ba; }
+  .real { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.3; } .real-t { fill: #116329; }
+  .dbl { fill: #fff1e5; stroke: #bc4c00; stroke-width: 1.3; stroke-dasharray: 4 3; } .dbl-t { fill: #953800; }
+  .pa { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.3; } .pa-t { fill: #0969da; }
+  .pb { fill: #fbefff; stroke: #8250df; stroke-width: 1.3; } .pb-t { fill: #8250df; }
+  .done { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1; } .done-t { fill: #8c959f; }
+  .dot-dom { fill: #bf8700; } .dot-app { fill: #1a7f37; } .dot-inf { fill: #0969da; } .dot-api { fill: #8250df; }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path class="head" d="M0,0 L10,5 L0,10 z"/>
+  </marker>
+</defs>
+<rect class="card" x="0.5" y="0.5" width="899" height="519" rx="12"/>
+<text x="24" y="40" class="h1" text-anchor="start">Clean Architecture: dependencies point inwards</text>
+<text x="24" y="63" class="s muted" text-anchor="start">Inner layers know nothing about outer layers. Ordering.ArchitectureTests fails CI if that ever changes.</text>
+<path class="api" d="M450.0,88 H187 a22,22 0 0 0 -22,22 V476 a22,22 0 0 0 22,22 H450.0 z"/>
+<path class="inf" d="M450.0,88 H713 a22,22 0 0 1 22,22 V476 a22,22 0 0 1 -22,22 H450.0 z"/>
+<text x="187" y="116" class="h2 api-t" text-anchor="start">Ordering.Api</text>
+<text x="187" y="135" class="xs muted" text-anchor="start">Minimal API endpoints</text>
+<text x="187" y="151" class="xs muted" text-anchor="start">ProblemDetails, composition root</text>
+<text x="713" y="116" class="h2 inf-t" text-anchor="end">Ordering.Infrastructure</text>
+<text x="713" y="135" class="xs muted" text-anchor="end">EF Core + Oracle, repositories</text>
+<text x="713" y="151" class="xs muted" text-anchor="end">outbox, message publisher</text>
+<rect x="249" y="180" width="402" height="298" rx="18" class="app"/>
+<text x="450.0" y="207" class="h2 app-t" text-anchor="middle">Ordering.Application</text>
+<text x="450.0" y="226" class="xs muted" text-anchor="middle">commands, queries and their handlers, validators,</text>
+<text x="450.0" y="242" class="xs muted" text-anchor="middle">ValidationBehavior, IUnitOfWork</text>
+<rect x="301" y="264" width="298" height="194" rx="14" class="dom"/>
+<text x="450.0" y="294" class="h2 dom-t" text-anchor="middle">Ordering.Domain</text>
+<text x="450.0" y="316" class="s" text-anchor="middle">Customer, Order, Email</text>
+<text x="450.0" y="335" class="s" text-anchor="middle">business rules, domain events</text>
+<text x="450.0" y="360" class="xs muted" text-anchor="middle">no project or package references</text>
+<line x1="175" y1="444" x2="245" y2="444" class="ln" marker-end="url(#arrow)"/>
+<line x1="725" y1="444" x2="655" y2="444" class="ln" marker-end="url(#arrow)"/>
+<line x1="259" y1="436" x2="297" y2="436" class="ln" marker-end="url(#arrow)"/>
+<line x1="641" y1="436" x2="603" y2="436" class="ln" marker-end="url(#arrow)"/>
+<text x="207" y="434" class="xs muted" text-anchor="middle">depends on</text>
+<text x="693" y="434" class="xs muted" text-anchor="middle">depends on</text>
+<rect x="24" y="250" width="112" height="54" rx="10" class="bar"/>
+<text x="80" y="273" class="s b" text-anchor="middle">HTTP client</text>
+<text x="80" y="291" class="xs muted" text-anchor="middle">JSON requests</text>
+<line x1="136" y1="277" x2="161" y2="277" class="ln" marker-end="url(#arrow)"/>
+<path class="bar" d="M764,169 v56 a56.0,9 0 0 0 112,0 v-56 a56.0,9 0 0 0 -112,0 z"/><ellipse class="bar" cx="820.0" cy="169" rx="56.0" ry="9"/><text x="820.0" y="197.0" class="s b" text-anchor="middle">Oracle</text><text x="820.0" y="214.0" class="xs muted" text-anchor="middle">tables, outbox</text>
+<rect x="764" y="320" width="112" height="54" rx="10" class="bar"/>
+<text x="820" y="343" class="s b" text-anchor="middle">Message</text>
+<text x="820" y="361" class="s b" text-anchor="middle">broker</text>
+<line x1="739" y1="200" x2="760" y2="200" class="ln" marker-end="url(#arrow)"/>
+<line x1="739" y1="347" x2="760" y2="347" class="ln" marker-end="url(#arrow)"/>
+</svg>

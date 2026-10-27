@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-label="How the test database is managed during a test run">
+<title>How the test database is managed during a test run</title>
+<style>
+  .card { fill: #ffffff; stroke: #d0d7de; }
+  text { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif; fill: #1f2328; }
+  .mono { font-family: ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; }
+  .muted { fill: #59636e; }
+  .h1 { font-size: 20px; font-weight: 600; }
+  .h2 { font-size: 15px; font-weight: 600; }
+  .b { font-weight: 600; }
+  .s { font-size: 13px; }
+  .xs { font-size: 12px; }
+  .ln { stroke: #6e7781; stroke-width: 1.6; fill: none; }
+  .dash { stroke-dasharray: 5 4; }
+  .head { fill: #6e7781; }
+  .bar { fill: #f6f8fa; stroke: #8c959f; stroke-width: 1.2; }
+  .sep { stroke: #d0d7de; stroke-width: 1; }
+  .dom { fill: #fff8c5; stroke: #bf8700; stroke-width: 1.5; } .dom-t { fill: #7d4e00; }
+  .app { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.5; } .app-t { fill: #116329; }
+  .inf { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.5; } .inf-t { fill: #0550ae; }
+  .api { fill: #fbefff; stroke: #8250df; stroke-width: 1.5; } .api-t { fill: #6639ba; }
+  .real { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.3; } .real-t { fill: #116329; }
+  .dbl { fill: #fff1e5; stroke: #bc4c00; stroke-width: 1.3; stroke-dasharray: 4 3; } .dbl-t { fill: #953800; }
+  .pa { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.3; } .pa-t { fill: #0969da; }
+  .pb { fill: #fbefff; stroke: #8250df; stroke-width: 1.3; } .pb-t { fill: #8250df; }
+  .done { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1; } .done-t { fill: #8c959f; }
+  .dot-dom { fill: #bf8700; } .dot-app { fill: #1a7f37; } .dot-inf { fill: #0969da; } .dot-api { fill: #8250df; }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path class="head" d="M0,0 L10,5 L0,10 z"/>
+  </marker>
+</defs>
+<rect class="card" x="0.5" y="0.5" width="899" height="429" rx="12"/>
+<text x="24" y="40" class="h1" text-anchor="start">One Oracle container per test assembly, a clean database before every test</text>
+<text x="24" y="63" class="s muted" text-anchor="start">The slow part (starting Oracle) happens once. Each test starts from empty tables, whatever ran before it.</text>
+<text x="24" y="126" class="s b" text-anchor="start">Infrastructure.IntegrationTests</text>
+<text x="24" y="144" class="xs muted" text-anchor="start">20 tests, one at a time</text>
+<rect x="262" y="108" width="144" height="50" rx="8" class="inf"/>
+<text x="334.0" y="130" class="xs b inf-t" text-anchor="middle">start Oracle</text>
+<text x="334.0" y="146" class="xs muted" text-anchor="middle">≈ 20–40 s, once</text>
+<rect x="412" y="108" width="98" height="50" rx="8" class="app"/>
+<text x="461.0" y="130" class="xs b app-t" text-anchor="middle">migrate</text>
+<text x="461.0" y="146" class="xs muted" text-anchor="middle">real migrations</text>
+<rect x="516" y="108" width="44" height="50" rx="6" class="dom"/>
+<text x="538" y="137" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="563" y="108" width="44" height="50" rx="6" class="bar"/>
+<text x="585" y="137" class="xs" text-anchor="middle">test</text>
+<rect x="613" y="108" width="44" height="50" rx="6" class="dom"/>
+<text x="635" y="137" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="660" y="108" width="44" height="50" rx="6" class="bar"/>
+<text x="682" y="137" class="xs" text-anchor="middle">test</text>
+<rect x="710" y="108" width="44" height="50" rx="6" class="dom"/>
+<text x="732" y="137" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="757" y="108" width="44" height="50" rx="6" class="bar"/>
+<text x="779" y="137" class="xs" text-anchor="middle">test</text>
+<text x="813" y="138" class="s b" text-anchor="start">…</text>
+<rect x="833" y="108" width="64" height="50" rx="8" class="bar" style="stroke-dasharray:4 3"/>
+<text x="865" y="130" class="xs b" text-anchor="middle">remove</text>
+<text x="865" y="146" class="xs muted" text-anchor="middle">container</text>
+<text x="24" y="222" class="s b" text-anchor="start">Api.IntegrationTests</text>
+<text x="24" y="240" class="xs muted" text-anchor="start">22 tests, one at a time</text>
+<rect x="262" y="204" width="144" height="50" rx="8" class="inf"/>
+<text x="334.0" y="226" class="xs b inf-t" text-anchor="middle">start Oracle</text>
+<text x="334.0" y="242" class="xs muted" text-anchor="middle">≈ 20–40 s, once</text>
+<rect x="412" y="204" width="98" height="50" rx="8" class="app"/>
+<text x="461.0" y="226" class="xs b app-t" text-anchor="middle">migrate</text>
+<text x="461.0" y="242" class="xs muted" text-anchor="middle">real migrations</text>
+<rect x="516" y="204" width="44" height="50" rx="6" class="dom"/>
+<text x="538" y="233" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="563" y="204" width="44" height="50" rx="6" class="bar"/>
+<text x="585" y="233" class="xs" text-anchor="middle">test</text>
+<rect x="613" y="204" width="44" height="50" rx="6" class="dom"/>
+<text x="635" y="233" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="660" y="204" width="44" height="50" rx="6" class="bar"/>
+<text x="682" y="233" class="xs" text-anchor="middle">test</text>
+<rect x="710" y="204" width="44" height="50" rx="6" class="dom"/>
+<text x="732" y="233" class="xs b dom-t" text-anchor="middle">reset</text>
+<rect x="757" y="204" width="44" height="50" rx="6" class="bar"/>
+<text x="779" y="233" class="xs" text-anchor="middle">test</text>
+<text x="813" y="234" class="s b" text-anchor="start">…</text>
+<rect x="833" y="204" width="64" height="50" rx="8" class="bar" style="stroke-dasharray:4 3"/>
+<text x="865" y="226" class="xs b" text-anchor="middle">remove</text>
+<text x="865" y="242" class="xs muted" text-anchor="middle">container</text>
+<path d="M246,108 v146" class="ln dash"/>
+<text x="238" y="185" class="xs muted" text-anchor="end">in parallel</text>
+<line x1="24" y1="296" x2="876" y2="296" class="sep"/>
+<text x="24" y="328" class="s b" text-anchor="start">Unit + architecture tests</text>
+<text x="24" y="346" class="xs muted" text-anchor="start">66 tests, no database</text>
+<rect x="262" y="310" width="120" height="44" rx="8" class="bar"/>
+<text x="322" y="337" class="xs b" text-anchor="middle">≈ 1 second</text>
+<rect x="24" y="380" width="44" height="26" rx="6" class="dom"/>
+<text x="46" y="397" class="xs b dom-t" text-anchor="middle">reset</text>
+<text x="80" y="397" class="xs muted" text-anchor="start">Respawn deletes all rows in foreign-key order; the schema and the migration history stay.</text>
+</svg>

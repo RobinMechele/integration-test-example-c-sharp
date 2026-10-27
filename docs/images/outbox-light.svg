@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-label="The transactional outbox in this project">
+<title>The transactional outbox in this project</title>
+<style>
+  .card { fill: #ffffff; stroke: #d0d7de; }
+  text { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif; fill: #1f2328; }
+  .mono { font-family: ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; }
+  .muted { fill: #59636e; }
+  .h1 { font-size: 20px; font-weight: 600; }
+  .h2 { font-size: 15px; font-weight: 600; }
+  .b { font-weight: 600; }
+  .s { font-size: 13px; }
+  .xs { font-size: 12px; }
+  .ln { stroke: #6e7781; stroke-width: 1.6; fill: none; }
+  .dash { stroke-dasharray: 5 4; }
+  .head { fill: #6e7781; }
+  .bar { fill: #f6f8fa; stroke: #8c959f; stroke-width: 1.2; }
+  .sep { stroke: #d0d7de; stroke-width: 1; }
+  .dom { fill: #fff8c5; stroke: #bf8700; stroke-width: 1.5; } .dom-t { fill: #7d4e00; }
+  .app { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.5; } .app-t { fill: #116329; }
+  .inf { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.5; } .inf-t { fill: #0550ae; }
+  .api { fill: #fbefff; stroke: #8250df; stroke-width: 1.5; } .api-t { fill: #6639ba; }
+  .real { fill: #dafbe1; stroke: #1a7f37; stroke-width: 1.3; } .real-t { fill: #116329; }
+  .dbl { fill: #fff1e5; stroke: #bc4c00; stroke-width: 1.3; stroke-dasharray: 4 3; } .dbl-t { fill: #953800; }
+  .pa { fill: #ddf4ff; stroke: #0969da; stroke-width: 1.3; } .pa-t { fill: #0969da; }
+  .pb { fill: #fbefff; stroke: #8250df; stroke-width: 1.3; } .pb-t { fill: #8250df; }
+  .done { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1; } .done-t { fill: #8c959f; }
+  .dot-dom { fill: #bf8700; } .dot-app { fill: #1a7f37; } .dot-inf { fill: #0969da; } .dot-api { fill: #8250df; }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path class="head" d="M0,0 L10,5 L0,10 z"/>
+  </marker>
+</defs>
+<rect class="card" x="0.5" y="0.5" width="899" height="499" rx="12"/>
+<text x="24" y="40" class="h1" text-anchor="start">The transactional outbox</text>
+<text x="24" y="63" class="s muted" text-anchor="start">Saving data and recording the event happen in one transaction. Publishing happens later, safely.</text>
+<text x="24" y="100" class="xs b muted" text-anchor="start" letter-spacing="0.06em">① IN THE REQUEST</text>
+<rect x="24" y="114" width="210" height="36" rx="8" class="bar"/>
+<text x="36" y="137" class="mono s b" text-anchor="start">POST /orders</text>
+<line x1="129" y1="150" x2="129" y2="164" class="ln" marker-end="url(#arrow)"/>
+<rect x="24" y="166" width="210" height="36" rx="8" class="bar"/>
+<text x="36" y="189" class="s b" text-anchor="start">PlaceOrderCommandHandler</text>
+<line x1="129" y1="202" x2="129" y2="216" class="ln" marker-end="url(#arrow)"/>
+<rect x="24" y="218" width="210" height="46" rx="8" class="bar"/>
+<text x="36" y="238" class="mono s b" text-anchor="start">Order.Place(...)</text>
+<text x="36" y="255" class="xs muted" text-anchor="start">raises OrderPlaced</text>
+<line x1="129" y1="264" x2="129" y2="278" class="ln" marker-end="url(#arrow)"/>
+<rect x="24" y="280" width="210" height="46" rx="8" class="bar"/>
+<text x="36" y="300" class="mono s b" text-anchor="start">SaveChanges</text>
+<text x="36" y="317" class="xs muted" text-anchor="start">outbox interceptor adds a row</text>
+<rect x="274" y="90" width="300" height="330" rx="14" class="bar"/>
+<text x="290" y="116" class="h2" text-anchor="start">Oracle</text>
+<rect x="288" y="132" width="272" height="186" rx="10" class="real" fill-opacity="0.55"/>
+<text x="300" y="152" class="xs b real-t" text-anchor="start">one transaction: both rows or neither</text>
+<text x="300" y="176" class="mono xs b" text-anchor="start">ORDERS</text>
+<rect x="300" y="182" width="248" height="26" rx="4" class="done"/>
+<text x="310" y="199" class="mono xs" text-anchor="start">order 7f3c… · Placed · 39.98</text>
+<text x="300" y="230" class="mono xs b" text-anchor="start">OUTBOX_MESSAGES</text>
+<rect x="300" y="236" width="248" height="24" rx="4" class="pa"/>
+<text x="310" y="252" class="mono xs" text-anchor="start">OrderPlaced</text>
+<text x="538" y="252" class="xs b pa-t" text-anchor="end">claimed by A</text>
+<rect x="300" y="264" width="248" height="24" rx="4" class="pb"/>
+<text x="310" y="280" class="mono xs" text-anchor="start">CustomerRegistered</text>
+<text x="538" y="280" class="xs b pb-t" text-anchor="end">claimed by B</text>
+<rect x="300" y="292" width="248" height="24" rx="4" class="done"/>
+<text x="310" y="308" class="mono xs" text-anchor="start">OrderCancelled</text>
+<text x="538" y="308" class="xs b done-t" text-anchor="end">processed ✓</text>
+<path d="M234,303 C254,330 254,250 286,230" class="ln" marker-end="url(#arrow)"/>
+<text x="290" y="368" class="xs muted" text-anchor="start">Rows already processed or locked</text>
+<text x="290" y="384" class="xs muted" text-anchor="start">by another processor are skipped:</text>
+<text x="290" y="402" class="mono xs b" text-anchor="start">FOR UPDATE SKIP LOCKED</text>
+<text x="614" y="100" class="xs b muted" text-anchor="start" letter-spacing="0.06em">② IN THE BACKGROUND</text>
+<rect x="614" y="150" width="130" height="58" rx="10" class="pa"/>
+<text x="679" y="174" class="xs b" text-anchor="middle">OutboxProcessor</text>
+<text x="679" y="192" class="xs pa-t b" text-anchor="middle">app instance A</text>
+<rect x="614" y="240" width="130" height="58" rx="10" class="pb"/>
+<text x="679" y="264" class="xs b" text-anchor="middle">OutboxProcessor</text>
+<text x="679" y="282" class="xs pb-t b" text-anchor="middle">app instance B</text>
+<path d="M548,248 C584,248 584,179 610,179" class="ln" marker-end="url(#arrow)"/>
+<path d="M548,276 C584,276 584,269 610,269" class="ln" marker-end="url(#arrow)"/>
+<rect x="772" y="190" width="104" height="70" rx="10" class="dbl" style="stroke-dasharray:none"/>
+<text x="824" y="220" class="s b" text-anchor="middle">Message</text>
+<text x="824" y="238" class="s b" text-anchor="middle">broker</text>
+<line x1="744" y1="179" x2="768" y2="214" class="ln" marker-end="url(#arrow)"/>
+<line x1="744" y1="269" x2="768" y2="238" class="ln" marker-end="url(#arrow)"/>
+<text x="824" y="282" class="xs muted" text-anchor="middle">publish, then</text>
+<text x="824" y="297" class="xs muted" text-anchor="middle">mark processed</text>
+<text x="24" y="446" class="xs b" text-anchor="start">Nothing lost, nothing invented:</text>
+<text x="24" y="463" class="xs muted" text-anchor="start">the event is saved with the data.</text>
+<text x="314" y="446" class="xs b" text-anchor="start">Several app instances can relay:</text>
+<text x="314" y="463" class="xs muted" text-anchor="start">each claims different rows.</text>
+<text x="604" y="446" class="xs b" text-anchor="start">Delivered at least once:</text>
+<text x="604" y="463" class="xs muted" text-anchor="start">consumers de-duplicate on MessageId.</text>
+</svg>
